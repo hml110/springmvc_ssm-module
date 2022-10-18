@@ -1,128 +1,239 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.hml</groupId>
-  <artifactId>springmvc_ssm</artifactId>
-  <version>1.0-SNAPSHOT</version>
+    <groupId>com.hml</groupId>
+    <artifactId>springmvc_ssm</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+
+    <!-- 定义该工程用于进行构建管理-->
+    <packaging>pom</packaging>
+    <!-- 聚合：管理的工程列表-->
     <modules>
+        <!--具体的工程名称-->
         <module>ssm_pojo</module>
         <module>ssm_dao</module>
         <module>ssm_service</module>
         <module>ssm_controller</module>
     </modules>
-    <packaging>pom</packaging>
-
-  <dependencies>
-
-<!--      spring坐标-->
-<!--      <dependency>-->
-<!--          <groupId>org.springframework</groupId>-->
-<!--          <artifactId>spring-context</artifactId>-->
-<!--          <version>5.1.9.RELEASE</version>-->
-<!--      </dependency>-->
 
 
-<!--    mybatis-->
-    <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis</artifactId>
-      <version>3.5.3</version>
-    </dependency>
+<!--    创建多环境-->
+    <profiles>
+<!--        定义具体的环境:生产环境-->
+        <profile>
+<!--            定义环境的唯一名称-->
+            <id>pro_env</id>
+<!--            定义环境中换用的属性值-->
+            <properties>
+                <jdbc.url>jdbc:mysql://localhost:3306/db1</jdbc.url>
+            </properties>
+<!--            &lt;!&ndash;            设置默认启动&ndash;&gt;-->
+<!--            <activation>-->
+<!--                <activeByDefault>true</activeByDefault>-->
+<!--            </activation>-->
+        </profile>
 
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.47</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-      <version>5.1.9.RELEASE</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis-spring</artifactId>
-      <version>2.0.3</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>druid</artifactId>
-      <version>1.1.16</version>
-    </dependency>
-
-<!--    分页插件-->
-    <dependency>
-      <groupId>com.github.pagehelper</groupId>
-      <artifactId>pagehelper</artifactId>
-      <version>5.1.2</version>
-    </dependency>
-
-<!--    springmvc-->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>5.1.9.RELEASE</version>
-    </dependency>
-
-<!--    jackson-->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.9.0</version>
-    </dependency>
-
-<!--servlet-->
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
-        <scope>provided</scope>
-    </dependency>
+<!--        定义具体的环境:开发环境-->
+        <profile>
+            <id>dep_env</id>
+            <!--            定义环境中专用的属性值-->
+            <properties>
+                <jdbc.url>jdbc:mysql://localhost:3306/db2</jdbc.url>
+            </properties>
+        </profile>
 
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-    </dependency>
+    </profiles>
 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>5.1.9.RELEASE</version>
-    </dependency>
+<!--    定义自定义属性-->
+    <properties>
+<!--        定义spring系列版本属性:名称为:spring.version-->
+        <spring.version>5.1.9.RELEASE</spring.version>
+        <junit.version>4.12</junit.version>
+
+        <jdbc.url>jdbc:mysql://localhost:3306/db1</jdbc.url>
+    </properties>
 
 
-  </dependencies>
+
+    <!-- 声明此次进行依赖管理-->
+    <dependencyManagement>
+        <!-- 具体的依赖-->
+        <dependencies>
+
+            <!--        自定义依赖-->
+            <dependency>
+                <groupId>com.hml</groupId>
+                <artifactId>ssm_dao</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hml</groupId>
+                <artifactId>ssm_service</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hml</groupId>
+                <artifactId>ssm_pojo</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hml</groupId>
+                <artifactId>ssm_controller</artifactId>
+                <version>${version}</version>
+            </dependency>
+
+
+
+            <!--      spring坐标-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!--    mybatis-->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.5.3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.47</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>2.0.3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>1.1.16</version>
+            </dependency>
+
+            <!--    分页插件-->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>5.1.2</version>
+            </dependency>
+
+            <!--    springmvc-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <!--    jackson-->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.9.0</version>
+            </dependency>
+
+            <!--servlet-->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>3.1.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 
     <build>
-        <!--设置插件-->
-        <plugins>
-            <!--具体的插件配置-->
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <port>80</port>
-                    <path>/</path>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>7</source>
-                    <target>7</target>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <!--设置插件-->
+            <plugins>
+                <!--具体的插件配置-->
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>2.1</version>
+                    <configuration>
+                        <port>80</port>
+                        <path>/</path>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>7</source>
+                        <target>7</target>
+                    </configuration>
+                </plugin>
+
+
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.1</version>
+                    <configuration>
+                        <!--设置跳过测试-->
+                        <skipTests>true</skipTests>
+                        <includes>
+                            <!--包含指定的测试用例-->
+                            <include>**/User*Test.java</include>
+                        </includes>
+                        <excludes>
+                            <!--排除指定的测试用例-->
+                            <exclude>**/User*TestCase.java</exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+
+<!--        配置资源文件对应的信息-->
+        <resources>
+            <resource>
+<!--                ${project.basedir}  项目的基础路径-->
+<!--                设置资源文件对应的位置目录,支持使用属性动态设置路径-->
+                <directory>${project.basedir}/src/main/resources</directory>
+<!--                开启配置文件的资源加载过滤-->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <!--       配置测试资源文件对应的信息-->
+        <testResources>
+            <testResource>
+                <!--                ${project.basedir}  项目的基础路径-->
+                <directory>${project.basedir}/src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
     </build>
 
 </project>

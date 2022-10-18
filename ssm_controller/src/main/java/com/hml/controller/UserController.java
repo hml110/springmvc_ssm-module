@@ -6,7 +6,6 @@ import com.hml.controller.result.Result;
 import com.hml.domain.User;
 import com.hml.service.UserService;
 import com.hml.system.exception.BuinessException;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

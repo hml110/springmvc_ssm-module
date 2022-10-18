@@ -9,7 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <!--    子项目id-->
     <artifactId>ssm_dao</artifactId>
+
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -24,7 +26,6 @@
         <dependency>
             <groupId>com.hml</groupId>
             <artifactId>ssm_pojo</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
 
 
@@ -32,44 +33,37 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>5.1.9.RELEASE</version>
         </dependency>
         <!--mybatis-->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.5.3</version>
         </dependency>
         <!--mysql环境-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.47</version>
         </dependency>
         <!--spring整合jdbc-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>5.1.9.RELEASE</version>
         </dependency>
         <!--spring整合mybatis-->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-            <version>2.0.3</version>
         </dependency>
         <!--druid连接池-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.1.16</version>
         </dependency>
 
         <!--页插件-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>5.1.2</version>
         </dependency>
 
 
